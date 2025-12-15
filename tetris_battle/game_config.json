@@ -1,0 +1,10 @@
+{
+  "name": "Tetris Battle",
+  "id": "tetris-battle",
+  "description": "雙人俄羅斯方塊對戰 (pygame GUI)。方向鍵操作，空白鍵硬降，C 暫存。",
+  "type": "gui",
+  "max_players": 2,
+  "server_entry": "server.py",
+  "client_entry": "client.py",
+  "requires": ["pygame"]
+}

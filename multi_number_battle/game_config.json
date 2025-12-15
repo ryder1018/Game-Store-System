@@ -1,0 +1,10 @@
+{
+  "name": "Dice Race Party",
+  "id": "dice-race-party",
+  "description": "3-4 人輪流擲骰子，先到 15 分獲勝。",
+  "type": "multi",
+  "max_players": 4,
+  "min_players": 2,
+  "server_entry": "server.py",
+  "client_entry": "client.py"
+}

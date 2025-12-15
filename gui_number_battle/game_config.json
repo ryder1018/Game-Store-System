@@ -1,0 +1,10 @@
+{
+  "name": "Number Battle GUI",
+  "id": "number-battle-gui",
+  "description": "雙人 GUI 猜數字對戰，使用視窗按鈕輸入。",
+  "type": "gui",
+  "max_players": 2,
+  "server_entry": "server.py",
+  "client_entry": "client_gui.py",
+  "requires": ["tkinter"]
+}
