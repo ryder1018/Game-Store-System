@@ -110,13 +110,14 @@ class LobbyDB:
 
 
 class LobbySession(threading.Thread):
-    def __init__(self, sock, addr, db: LobbyDB, store: StoreClient, game_host: str, port_alloc):
+    def __init__(self, sock, addr, db: LobbyDB, store: StoreClient, game_host: str, game_bind_host: str, port_alloc):
         super().__init__(daemon=True)
         self.s = sock
         self.a = addr
         self.db = db
         self.store = store
         self.game_host = game_host
+        self.game_bind_host = game_bind_host
         self.alloc_port = port_alloc
         self.user: Optional[str] = None
 
@@ -337,7 +338,7 @@ class LobbySession(threading.Thread):
                     cmd = [
                         sys.executable,
                         info.get("server_entry", "server.py"),
-                        "--host", self.game_host,
+                        "--host", self.game_bind_host,
                         "--port", str(port),
                         "--room", rid,
                         "--players", ",".join(members),
@@ -387,12 +388,13 @@ class LobbySession(threading.Thread):
 
 
 class LobbyServer:
-    def __init__(self, host: str, port: int, db_path: str, store_host: str, store_port: int, game_host: str, game_port_start: int):
+    def __init__(self, host: str, port: int, db_path: str, store_host: str, store_port: int, game_host: str, game_bind_host: str, game_port_start: int):
         self.host = host
         self.port = port
         self.db = LobbyDB(db_path)
         self.store = StoreClient(store_host, store_port)
         self.game_host = game_host
+        self.game_bind_host = game_bind_host
         self.next_port = game_port_start
         self.lock = threading.RLock()
 
@@ -411,7 +413,7 @@ class LobbyServer:
             srv.bind((self.host, self.port)); srv.listen(128)
             while True:
                 c, a = srv.accept()
-                LobbySession(c, a, self.db, self.store, self.game_host, self.alloc_port).start()
+                LobbySession(c, a, self.db, self.store, self.game_host, self.game_bind_host, self.alloc_port).start()
 
 
 if __name__ == "__main__":
@@ -422,6 +424,7 @@ if __name__ == "__main__":
     ap.add_argument("--store_host", default="127.0.0.1")
     ap.add_argument("--store_port", type=int, default=17080)
     ap.add_argument("--game_host", default="127.0.0.1")
+    ap.add_argument("--game_bind_host", default="0.0.0.0")
     ap.add_argument("--game_port_start", type=int, default=19100)
     args = ap.parse_args()
-    LobbyServer(args.host, args.port, args.db_path, args.store_host, args.store_port, args.game_host, args.game_port_start).serve()
+    LobbyServer(args.host, args.port, args.db_path, args.store_host, args.store_port, args.game_host, args.game_bind_host, args.game_port_start).serve()

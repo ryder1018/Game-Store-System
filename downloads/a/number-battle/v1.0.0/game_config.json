@@ -1,0 +1,9 @@
+{
+  "name": "Number Battle",
+  "id": "number-battle",
+  "description": "簡單的 2 人猜數字對戰。輪流輸入 1-50，先猜中者勝。",
+  "type": "cli",
+  "max_players": 2,
+  "server_entry": "server.py",
+  "client_entry": "client.py"
+}
