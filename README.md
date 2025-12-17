@@ -2,13 +2,10 @@
 
 ## 0. 環境需求
 
-- Python：建議 `Python 3.10+`（系計主機目前為 `3.11`）
-- GUI 遊戲套件（若要 Demo GUI 關卡）：
+- Python：建議 `Python 3.10+`
+- GUI 遊戲套件：
   - `pygame`：給 `tetris_battle/`
     - 安裝：`pip install pygame`（或 Ubuntu：`sudo apt-get install python3-pygame`）
-  - `tkinter`：給 `gui_number_battle/`
-    - Ubuntu 安裝：`sudo apt-get install python3-tk`
-- 若只 Demo CLI 遊戲（`template_game/`, `multi_number_battle/`），則不需要安裝 GUI 套件。
 
 ## 1. 啟動服務
 
@@ -40,14 +37,14 @@ rm -rf uploaded_games store_db.json lobby_db.json
 - **Store（linux1）**
   ```bash
   cd ~/hw3
-  python3 store_server.py --host 0.0.0.0 --port 12020 --storage_root uploaded_games --db store_db.json
+  python3 store_server.py --host 0.0.0.0 --port 12044 --storage_root uploaded_games --db store_db.json
   ```
 - **Lobby（linux1）**
   ```bash
   cd ~/hw3
-  python3 lobby_server.py --host 0.0.0.0 --port 12021 \
-    --store_host 127.0.0.1 --store_port 12020 \
-    --db lobby_db.json --game_host linux1.cs.nycu.edu.tw --game_bind_host 0.0.0.0 --game_port_start 13000
+  python3 lobby_server.py --host 0.0.0.0 --port 12045 \
+    --store_host 127.0.0.1 --store_port 12044 \
+    --db lobby_db.json --game_host linux1.cs.nycu.edu.tw --game_bind_host 0.0.0.0 --game_port_start 13044
   ```
 
 ### 1.2 本機/助教端直連
@@ -64,20 +61,20 @@ rm -rf uploaded_games store_db.json lobby_db.json
 3) **開發者**（終端 C）
    ```bash
    cd hw3
-   python3 developer_client.py --host linux1.cs.nycu.edu.tw --port 12020
+   python3 developer_client.py --host linux1.cs.nycu.edu.tw --port 12044
    ```
    選單：`1 註冊` → `2 登入` → `2 上架新遊戲`，路徑 `tetris_battle`，版本 `v1.0.0`。
    路徑有:template_game、tetris_battle、multi_number_battle
 4) **玩家 A**（終端 D）
    ```bash
    cd hw3
-   python3 lobby_client.py --lobby_host linux1.cs.nycu.edu.tw --lobby_port 12021 --store_host linux1.cs.nycu.edu.tw --store_port 12020
+   python3 lobby_client.py --lobby_host linux1.cs.nycu.edu.tw --lobby_port 12045 --store_host linux1.cs.nycu.edu.tw --store_port 12044
    ```
    選單：`1 註冊/登入 alice` → `3 下載 Tetris Battle` → `4 建房 room1 並啟動`。
 5) **玩家 B**（終端 E）
    ```bash
    cd hw3
-   python3 lobby_client.py --lobby_host linux1.cs.nycu.edu.tw --lobby_port 12021 --store_host linux1.cs.nycu.edu.tw --store_port 12020
+   python3 lobby_client.py --lobby_host linux1.cs.nycu.edu.tw --lobby_port 12045 --store_host linux1.cs.nycu.edu.tw --store_port 12044
    ```
    選單：`1 註冊/登入 bob` → `4 加入 room1`，等待房主啟動後自動進入遊戲。對局結束可在主選單 `5` 評分留言。
 
