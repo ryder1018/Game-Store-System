@@ -1,5 +1,14 @@
 # HW3 Game Store System
 
+## 0. 環境需求
+
+- Python：建議 `Python 3.10+`（系計主機目前為 `3.11`）
+- GUI 遊戲套件（若要 Demo GUI 關卡）：
+  - `pygame`：給 `tetris_battle/`
+    - 安裝：`pip install pygame`（或 Ubuntu：`sudo apt-get install python3-pygame`）
+  - `tkinter`：給 `gui_number_battle/`
+    - Ubuntu 安裝：`sudo apt-get install python3-tk`
+- 若只 Demo CLI 遊戲（`template_game/`, `multi_number_battle/`），則不需要安裝 GUI 套件。
 
 ## 1. 啟動服務
 
@@ -150,4 +159,3 @@ rm -rf uploaded_games store_db.json lobby_db.json
 ## 10. 已知限制
 
 - Plugin（房間聊天等）未實作。
-
